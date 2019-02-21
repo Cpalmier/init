@@ -1,0 +1,3 @@
+sudo apt-get upgrade > update_script.log
+sudo apt-get update >> update_script.log
+sudo mv update_script.log /var/log

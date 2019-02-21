@@ -1,0 +1,18 @@
+#!/bin/bash
+
+NOM_FICHIER="/etc/crontab"
+
+DERNIERE_MODIF=$(date -r ${NOM_FICHIER} '+%d/%m/%Y %H:%M')
+
+DATE_MODIF=`cat /etc/crontab_date`
+
+MAIL_ADMIN="root"
+
+# Test si les deux dates sont identiques
+if [ "${DERNIERE_MODIF}" != "${DATE_MODIF}" ]; then
+
+# Si différente, envoi du mail d'alerte
+CORPS_MESSAGE="Alerte, le fichier ${NOM_FICHIER} a ete modifie le ${DERNIERE_MODIF}";
+echo "$CORPS_MESSAGE" | mail -s "Warning file modification !" "${MAIL_ADMIN}";
+echo $DERNIERE_MODIF > /etc/crontab_date
+fi
